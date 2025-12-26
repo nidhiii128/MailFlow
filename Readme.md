@@ -1,60 +1,69 @@
-# Spring Boot Quartz Scheduler Example: Building an Email Scheduling app
+# 📧 Automated Email Scheduler
 
-## Requirements
-
-1. Java - 21
-
-2. Maven - 3.x.x
-
-3. MySQL - 5.x.x
-
-## Steps to Setup
-
-**1. Clone the application**
-
-```bash
-git clone https://github.com/armangupta910/Email-Scheduler-with-Frontend.git
-```
-
-**2. Create MySQL database**
-
-```bash
-create database quartz_demo
-```
-
-**3. Change MySQL username and password as per your MySQL installation**
-
-open `src/main/resources/application.properties`, and change `spring.datasource.username` and `spring.datasource.password` properties as per your mysql installation
+A robust full-stack application built with **Spring Boot** and **Quartz Scheduler** that allows for precise scheduling of personalized emails. This project supports both single entries and bulk processing via Excel, persisting all jobs in a local **MySQL** database.
 
 
-**4. Setup Spring Mail**
 
-The project is using Gmail's SMTP server for sending emails. Whether you use Gmail or any other SMTP server, you'll need to configure the following mail properties accordingly -
+---
 
-```properties
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=your_email
-spring.mail.password=your_password
-```
+## 🚀 Key Features
 
-If you're using Gmail, you need to allow the third party apps to send emails by following the instructions below -
+* **Quartz Persistence:** Jobs are saved in MySQL tables, ensuring they are not lost if the server restarts.
+* **Single Email Scheduling:** A dedicated dashboard to schedule emails with custom templates (Company Name, Designation, etc.).
+* **Bulk Processing:** Upload `.xlsx` or `.xls` files to schedule hundreds of emails simultaneously.
+* **Gmail SMTP Integration:** Secured via Google App Passwords for reliable delivery.
+* **Modern UI:** Responsive dashboard served via Thymeleaf.
 
-+ Go to https://myaccount.google.com/security?pli=1#connectedapps
-+ Set ‘Allow less secure apps’ to YES
+---
 
-**5. Create Quartz Tables**
+## 🛠️ Tech Stack
 
-The project stores all the scheduled Jobs in MySQL database. You'll need to create the tables that Quartz uses to store Jobs and other job-related data. Please create Quartz specific tables by executing the `quartz_tables.sql` script located inside `src/main/resources` directory.
+* **Backend:** Java 17, Spring Boot 2.5.5
+* **Scheduler:** Quartz Scheduler 2.3.2
+* **Database:** MySQL 8.0
+* **Frontend:** Thymeleaf, HTML5, CSS3 (Modern Dashboard UI)
+* **Build Tool:** Maven
 
-```bash
-mysql> source <PATH_TO_QUARTZ_TABLES.sql>
-```
+---
 
-**6. Build and run the app using maven**
+## ⚙️ Local Setup Instructions
 
-Finally, You can run the app by typing the following command from the root directory of the project -
+### 1. Database Configuration
+1. Open your MySQL Command Line.
+2. Create a new database:
+   ```sql
+   CREATE DATABASE quartz_demo;
 
-```bash
-mvn spring-boot:run
-```
+Quartz will automatically generate its required QRTZ_ tables upon the first successful run.
+
+2. Configure Environment
+Update src/main/resources/application.properties with your local credentials:
+
+Properties
+
+# MySQL Connection
+spring.datasource.url=jdbc:mysql://localhost:3306/quartz_demo
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+
+# Gmail SMTP (Google App Password)
+spring.mail.username=your-email@gmail.com
+spring.mail.password=your-16-character-app-code
+3. Running the Application
+Open your terminal in the project root and run:
+
+PowerShell
+
+.\mvnw spring-boot:run
+The application will be accessible at: http://localhost:8080
+
+📂 Project Structure
+src/main/java: Contains the Quartz Job logic and Controller endpoints.
+
+src/main/resources/templates: Contains the index.html UI.
+
+src/main/resources/static: Contains images and CSS assets.
+
+pom.xml: Managed dependencies including Spring Mail and Quartz.
+
+<img width="1896" height="919" alt="image" src="https://github.com/user-attachments/assets/c26f495c-ce16-41f3-8255-42aee23dddec" />
